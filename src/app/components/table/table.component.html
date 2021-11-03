@@ -1,0 +1,21 @@
+<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">Card Owner</th>
+            <th scope="col">card Number</th>
+            <th scope="col">Exp Date</th>
+            <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let payment of payments">
+            <td (click)="onForm(payment)">{{payment.cardOwnerName}}</td>
+            <td (click)="onForm(payment)">{{payment.cardNumber}}</td>
+            <td (click)="onForm(payment)">{{payment.expirationDate}}</td>
+            <td>
+                <button (click)="deletePayment(payment.paymentDetailId)" class="btn btn-primary btn-sm">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

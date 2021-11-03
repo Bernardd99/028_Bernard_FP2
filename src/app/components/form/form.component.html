@@ -1,0 +1,42 @@
+<form [formGroup]="addPaymentForm" autocomplete="off">
+    <input type="hidden" formControlName="paymentDetailId" class="form-control form-control-lg" palceholder="paymentDetailId" id="paymentDetailId" />
+    <div class="form-group">
+        <label>Card Ower Name</label>
+        <input type="text" formControlName="cardOwnerName" class="form-control form-control-lg" placeholder="Full Name"
+            name="cardOwnerName">
+        <span *ngIf="cardOwnerName && cardOwnerName.touched&& cardOwnerName.invalid" style="color: red;">
+            Card Owner Name is Invalid [> 4 Characters]
+        </span>
+    </div>
+    <div class="form-group">
+        <label>Card Number</label>
+        <input type="text" formControlName="cardNumber" class="form-control form-control-lg"
+            placeholder="16 Digit Card Number" name="cardNumber">
+        <span *ngIf="cardNumber && cardNumber.touched && cardNumber.invalid" style="color: red;">
+            Card Number is Invalid [16 Numbers]
+        </span>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>Security Code</label>
+            <input type="password" formControlName="securityCode" class="form-control form-control-lg"
+                placeholder="Security Code" name="securityCode">
+            <span *ngIf="securityCode && securityCode.touched && securityCode.invalid" style="color: red;">
+                Security Code is Invalid [5 Numbers]
+            </span>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Valid Through</label>
+            <input type="text" formControlName="expirationDate" class="form-control form-control-lg" placeholder="MM/YY"
+                name="expirationDate">
+            <span *ngIf="expirationDate && expirationDate.touched && expirationDate.invalid" style="color: red;">
+                Expiration Date is Invalid [MM/YY]
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="addPaymentForm.invalid" type="submit" class="btn btn-info btn-lg w-100 mt-3" (click)="submit()">
+            Submit
+        </button>
+    </div>
+</form>

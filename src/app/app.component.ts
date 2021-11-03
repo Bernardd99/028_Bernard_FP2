@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Output } from '@angular/core';
+import { payments } from './models/payment';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'payment-app';
+
+  paymentParent: payments = {} as payments
+
+  shareData(payment: payments){
+    this.paymentParent = payment
+  }
+
 }
