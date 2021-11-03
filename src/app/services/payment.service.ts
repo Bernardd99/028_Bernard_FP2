@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 export class PaymentService {
   // paymentData !: payments 
 
-  endpoint: string = `http://localhost:5000/api/PaymentDetail`
+  endpoint: string = `https://paymentapiangular.herokuapp.com/api/PaymentDetail`
 
   constructor(private http: HttpClient) { }
 
