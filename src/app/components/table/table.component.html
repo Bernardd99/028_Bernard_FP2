@@ -12,10 +12,37 @@
             <td (click)="onForm(payment)">{{payment.cardNumber}}</td>
             <td (click)="onForm(payment)">{{payment.expirationDate}}</td>
             <td>
-                <button (click)="deletePayment(payment.paymentDetailId)" class="btn btn-primary btn-sm">
+                <button type="button" class="btn btn-primary btn-sm"
+                    (click)="confirmDelete(payment.paymentDetailId, payment.cardOwnerName)" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
                     Delete
                 </button>
             </td>
         </tr>
     </tbody>
 </table>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Payment Data by the name: {{cardOwnerName}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure ?
+            </div>
+            <div class="modal-footer">
+                <button (click)="deletePayment()" class="btn btn-danger btn-sm">
+                    Yes
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
+                    id="closeDelete">No</button>
+            </div>
+        </div>
+    </div>
+</div>

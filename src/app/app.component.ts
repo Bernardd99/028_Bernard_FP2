@@ -11,9 +11,13 @@ export class AppComponent {
   title = 'payment-app';
 
   paymentParent: payments = {} as payments
+  refresh: any;
 
-  shareData(payment: payments){
+  shareData(payment: payments) {
     this.paymentParent = payment
   }
 
+  ngOnInit(a: any) {
+    this.refresh = a;
+  }
 }

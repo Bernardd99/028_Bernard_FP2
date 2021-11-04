@@ -3,11 +3,10 @@
 
     <div class="row">
         <div class="col-md-6">
-            <app-form [paymentData]="paymentParent"></app-form>
+            <app-form [paymentData]="paymentParent" [refresh]="refresh" ></app-form>
         </div>
         <div class="col-md-6">
-            <!-- <app-table [form]="onForm"></app-table> -->
-            <app-table (FormEmitter)="shareData($event)"></app-table>
+            <app-table (FormEmitter)="shareData($event)" (refreshEmitter)="ngOnInit($event)"></app-table>
         </div>
     </div>
 </div>

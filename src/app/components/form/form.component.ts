@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PaymentService } from 'src/app/services/payment.service';
 import { payments } from 'src/app/models/payment';
@@ -15,11 +15,18 @@ export class FormComponent implements OnInit {
 
   constructor(public paymentService: PaymentService, private table: TableComponent) { }
   @Input() paymentData: payments = {} as payments;
+  @Input() refresh: any;
+
+  // @Output() refreshEmitter = new EventEmitter<boolean>();
+  // isrefresh: boolean = false;
+
   payments: payments[] = [];
   paymentId: number = 0;
   isEdit: boolean = false;
-  dataAdd: payments = {} as payments
-  dataUpdate: payments = {} as payments
+
+  // testRefresh(){
+  //   this.refreshEmitter.emit(this.isrefresh)
+  // }
 
   addPaymentForm = new FormGroup({
     paymentDetailId: new FormControl(0, [
@@ -66,17 +73,17 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getPayments();
+    this.getPayments();
   }
 
   ngDoCheck(): void {
     if (Object.keys(this.paymentData).length > 0) {
       this.paymentId = this.paymentData.paymentDetailId;
-      this.paymentDetailId?.setValue(this.paymentData.paymentDetailId)
-      this.cardOwnerName?.setValue(this.paymentData.cardOwnerName);
-      this.cardNumber?.setValue(this.paymentData.cardNumber);
-      this.securityCode?.setValue(this.paymentData.securityCode);
-      this.expirationDate?.setValue(this.paymentData.expirationDate);
+      this.addPaymentForm.controls['paymentDetailId'].setValue(this.paymentData.paymentDetailId)
+      this.addPaymentForm.controls['cardOwnerName'].setValue(this.paymentData.cardOwnerName);
+      this.addPaymentForm.controls['cardNumber'].setValue(this.paymentData.cardNumber);
+      this.addPaymentForm.controls['securityCode'].setValue(this.paymentData.securityCode);
+      this.addPaymentForm.controls['expirationDate'].setValue(this.paymentData.expirationDate);
       this.isEdit = true;
       this.paymentData = {} as payments;
     }
@@ -95,9 +102,11 @@ export class FormComponent implements OnInit {
       .subscribe((res) => {
         if (res) {
           alert("Payment Data Has Been Added!")
+          this.refresh;
           this.addPaymentForm.reset();
-          this.table.ngOnInit();
-          // this.getPayments();
+          this.table.getPayments();
+          this.getPayments();
+          location.reload();
         }
       })
   }
@@ -117,8 +126,9 @@ export class FormComponent implements OnInit {
           this.isEdit = false
           alert("Payment Data Has Been Updated!")
           this.addPaymentForm.reset();
+          this.getPayments();
           this.table.ngOnInit();
-          // this.getPayments();
+          location.reload();
         }
       })
   }

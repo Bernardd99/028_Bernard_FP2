@@ -16,10 +16,13 @@ export class TableComponent implements OnInit {
   constructor(public paymentService: PaymentService) { }
 
   @Output() FormEmitter = new EventEmitter<payments>();
+  @Output() refreshEmitter = new EventEmitter<any>();
+
 
   onPayment: payments = {} as payments
   payments: payments[] = [];
   paymentId: number = 0;
+  cardOwnerName: string = '';
 
   ngOnInit(): void {
     this.getPayments();
@@ -32,16 +35,28 @@ export class TableComponent implements OnInit {
       })
   }
 
-  deletePayment(paymentDetailId: number) {
-    this.paymentService.deletePayment(paymentDetailId).
+  deletePayment() {
+    this.paymentService.deletePayment(this.paymentId).
       subscribe((res) => {
         alert("Payment Data Has Been Deleted")
+        let closeModal = document.getElementById('closeDelete')
+        closeModal?.click();
         this.getPayments();
       })
   }
-  
+
+  confirmDelete(paymentDetailId: number, cardOwnerName: string) {
+    this.paymentId = paymentDetailId
+    this.cardOwnerName = cardOwnerName
+
+  }
+
   onForm(payment: payments) {
     this.onPayment = payment;
     this.FormEmitter.emit(this.onPayment)
+  }
+
+  test() {
+    this.refreshEmitter.emit(this.ngOnInit())
   }
 }
